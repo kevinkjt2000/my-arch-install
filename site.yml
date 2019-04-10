@@ -1,0 +1,46 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: full upgrade
+      pacman:
+        update_cache: true
+        upgrade: true
+    - name: install packages
+      pacman:
+        name:
+          - base-devel
+          - cmake
+          - gdb
+          - reflector
+          - valgrind
+    - name: create /opt/bin directory
+      file:
+        path: /opt/bin
+        state: directory
+        owner: root
+        group: root
+        mode: 0775
+    - name: reflector sync script
+      copy:
+        content: |
+          #!/bin/sh
+          reflector --verbose --latest 40 --number 10 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
+        dest: /opt/bin/reflector_sync.sh
+        mode: +x
+    - name: pacman hooks
+      copy:
+        content: |
+          [Trigger]
+          Type = Package
+          Operation = Install
+          Operation = Upgrade
+          Target = pacman-mirrorlist
+
+          [Action]
+          Description = Updating mirrorlist...
+          When = PostTransaction
+          Depends = reflector
+          Exec = /opt/bin/reflector_sync.sh
+        dest: /etc/pacman.d/hooks/reflector_sync.hook
