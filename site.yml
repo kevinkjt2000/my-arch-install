@@ -58,6 +58,7 @@
           - docker-compose
           - docker-machine
           - gdb
+          - git
           - hub
           - inotify-tools
           - neovim
