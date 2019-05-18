@@ -7,14 +7,39 @@
       pacman:
         update_cache: true
         upgrade: true
-    - name: install packages
+    - name: install must-have packages
+      pacman:
+        name:
+          - arch-install-scripts
+          - chromium
+          - netdata
+          - reflector
+          - tmux
+          - xscreensaver
+    - name: install development packages
       pacman:
         name:
           - base-devel
           - cmake
+          - docker
+          - docker-compose
+          - docker-machine
           - gdb
-          - reflector
+          - hub
+          - inotify-tools
+          - neovim
+          - thefuck
           - valgrind
+    - name: install useful utilities
+      pacman:
+        name:
+          - arch-audit
+          - gnome-screenshot
+          - gparted
+          - moreutils
+          - pavucontrol
+          - unrar
+          - zip
     - name: create /opt/bin directory
       file:
         path: /opt/bin
