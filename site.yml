@@ -34,6 +34,7 @@
       pacman:
         name:
           - arch-audit
+          - gnome-keyring
           - gnome-screenshot
           - gparted
           - moreutils
