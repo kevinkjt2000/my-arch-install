@@ -46,6 +46,7 @@
           - arch-install-scripts
           - chromium
           - netdata
+          - pacman-contrib
           - reflector
           - tmux
           - xscreensaver
