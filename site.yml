@@ -63,6 +63,7 @@
           - hub
           - inotify-tools
           - neovim
+          - pyenv
           - thefuck
           - valgrind
     - name: install useful utilities
